@@ -1,14 +1,14 @@
-package pakiet.arkadiuszzimny.recruitmentweatherapp
+package pakiet.arkadiuszzimny.recruitmentweatherapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnimationUtils
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
+import pakiet.arkadiuszzimny.recruitmentweatherapp.R
 import pakiet.arkadiuszzimny.recruitmentweatherapp.databinding.ActivityMainBinding
+import pakiet.arkadiuszzimny.recruitmentweatherapp.ui.fragments.MainFragment
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

@@ -1,4 +1,4 @@
-package pakiet.arkadiuszzimny.recruitmentweatherapp
+package pakiet.arkadiuszzimny.recruitmentweatherapp.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,18 @@ import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
+import pakiet.arkadiuszzimny.recruitmentweatherapp.R
 import pakiet.arkadiuszzimny.recruitmentweatherapp.databinding.MainFragmentLayoutBinding
+import pakiet.arkadiuszzimny.recruitmentweatherapp.startAnimation
+import pakiet.arkadiuszzimny.recruitmentweatherapp.ui.MainViewModel
 
+@AndroidEntryPoint
 class MainFragment: Fragment() {
 
-    lateinit var binding: MainFragmentLayoutBinding
+    private val viewModel: MainViewModel by viewModels()
+    private lateinit var binding: MainFragmentLayoutBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +38,9 @@ class MainFragment: Fragment() {
             binding.floatingButtonList.isVisible = false
             binding.circleView.isVisible = true
             binding.circleView.startAnimation(animation) {
-                binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(),
+                    R.color.colorPrimary
+                ))
                 binding.circleView.isVisible = false
                 binding.botttomListLayout.isVisible = false
             }
