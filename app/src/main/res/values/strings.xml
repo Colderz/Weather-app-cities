@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RecruitmentWeatherApp</string>
+    <string name="smallest_temp">Smallest temperature across all cities</string>
+    <string name="city_avg">Smallest average daily temperature</string>
 </resources>
