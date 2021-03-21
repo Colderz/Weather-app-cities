@@ -48,13 +48,17 @@ class MainFragment : Fragment() {
                 binding.botttomListLayout.isVisible = false
             }
         }
-        setMinimumTempAcrossTextView(viewModel.getSmallestAcross())
-
+        setSmallestTempAcrossTextView(viewModel.getSmallestAcross())
+        setSmallestAverageCityTextView(viewModel.getCityWithSmallestAverage())
 
         return binding.root
     }
 
-    private fun setMinimumTempAcrossTextView(temp: Double) {
+    private fun setSmallestTempAcrossTextView(temp: Double) {
         binding.textViewMinAcross.text = temp.toString()
+    }
+
+    private fun setSmallestAverageCityTextView(city: String) {
+        binding.textCityAverage.text = city
     }
 }

@@ -64,10 +64,20 @@ class MainViewModel : ViewModel() {
 """.trimIndent()
 
     var weatherItems = GsonBuilder().create().fromJson(json, WeatherResponses::class.java)
+    val arraySize = weatherItems.size
 
     fun getSmallestAcross(): Double {
-        return (Array(weatherItems.size) {i -> weatherItems[i].hourly_temp.minByOrNull { it.temp }.let { it!!.temp }}).minByOrNull { it }!!
+        return (Array(arraySize) { i ->
+            weatherItems[i].hourly_temp.minByOrNull { it.temp }.let { it!!.temp }
+        }).minByOrNull { it }!!
     }
 
+    fun getCityWithSmallestAverage(): String {
+        val arrayAvg =
+            Array(arraySize) { i -> weatherItems[i].hourly_temp.map { it.temp }.average() }
+        val arrayCity = Array(arraySize) { i -> weatherItems[i].city }
+        return arrayAvg.mapIndexedNotNull { index, d -> if (d == arrayAvg.minByOrNull { it }) arrayCity[index] else null }
+            .first()
+    }
 
 }
