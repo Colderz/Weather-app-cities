@@ -3,4 +3,10 @@
     <string name="smallest_temp">Smallest temperature across all cities</string>
     <string name="city_avg">Smallest average daily temperature</string>
     <string name="rvTitleHigh">Highest temperatures</string>
+    <string name="hourly_section">Hourly temperatures</string>
+    <string name="tempS">"Smallest temperature: "</string>
+    <string name="tempH">"Highest temperature: "</string>
+    <string name="temp_stat">Temperature statistics</string>
+    <string name="stats">Highlights</string>
+    <string name="list_temp">Cities</string>
 </resources>

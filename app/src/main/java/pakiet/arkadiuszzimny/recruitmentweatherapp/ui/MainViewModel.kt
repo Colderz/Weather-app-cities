@@ -1,12 +1,8 @@
 package pakiet.arkadiuszzimny.recruitmentweatherapp.ui
 
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-import pakiet.arkadiuszzimny.recruitmentweatherapp.WeatherResponseItem
 import pakiet.arkadiuszzimny.recruitmentweatherapp.WeatherResponses
-import java.util.stream.Stream
 
 class MainViewModel : ViewModel() {
 
@@ -73,11 +69,31 @@ class MainViewModel : ViewModel() {
     }
 
     fun getCityWithSmallestAverage(): String {
-        val arrayAvg =
+        val arrayAvg: Array<Double> =
             Array(arraySize) { i -> weatherItems[i].hourly_temp.map { it.temp }.average() }
         val arrayCity = Array(arraySize) { i -> weatherItems[i].city }
         return arrayAvg.mapIndexedNotNull { index, d -> if (d == arrayAvg.minByOrNull { it }) arrayCity[index] else null }
             .first()
+    }
+
+    fun getArrayWithCity(): Array<String> {
+        return Array(arraySize) { i -> weatherItems[i].city }
+    }
+
+    fun getArrayWithMaxTemp(): Array<Double> {
+        return (Array(arraySize) { i ->
+            weatherItems[i].hourly_temp.maxByOrNull { it.temp }.let { it!!.temp }
+        })
+    }
+
+    fun getArrayWithWeather(): Array<String> {
+        return Array(arraySize) { i -> weatherItems[i].weather }
+    }
+
+    fun getArrayWithSmallestTemp(): Array<Double> {
+        return (Array(arraySize) { i ->
+            weatherItems[i].hourly_temp.minByOrNull { it.temp }.let { it!!.temp }
+        })
     }
 
 }

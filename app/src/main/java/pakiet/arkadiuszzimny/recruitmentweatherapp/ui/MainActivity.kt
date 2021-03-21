@@ -17,9 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        var fragment = MainFragment::class.java.newInstance()
-        setFragment(fragment)
+        setFragment(MainFragment::class.java.newInstance())
     }
 
     private fun setFragment(fragment: Fragment) {
