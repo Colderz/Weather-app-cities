@@ -79,7 +79,7 @@ class MainFragment : Fragment() {
             }
         }
         setSmallestTempAcrossTextView(viewModel.getSmallestAcross())
-        setSmallestAverageCityTextView(viewModel.getCityWithSmallestAverage())
+        setSmallestAverageCityTextView(viewModel.getCityWithSmallestAverageFun())
         recyclerViewHigh = binding.rv
         recyclerViewHigh.layoutManager =
             LinearLayoutManager(requireContext().applicationContext, RecyclerView.HORIZONTAL, false)
@@ -94,6 +94,9 @@ class MainFragment : Fragment() {
             viewModel.getArrayWithMaxTemp()
         )
 
+        viewModel.printSmallestTemp()
+        viewModel.printMaxTempForEachCity(viewModel.weatherItems)
+        viewModel.printCityWithSmallestAvg()
         return binding.root
     }
 

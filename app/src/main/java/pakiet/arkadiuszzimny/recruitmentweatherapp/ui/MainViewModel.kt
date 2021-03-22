@@ -60,40 +60,90 @@ class MainViewModel : ViewModel() {
 """.trimIndent()
 
     var weatherItems = GsonBuilder().create().fromJson(json, WeatherResponses::class.java)
-    val arraySize = weatherItems.size
 
     fun getSmallestAcross(): Double {
-        return (Array(arraySize) { i ->
+        return (Array(weatherItems.size) { i ->
             weatherItems[i].hourly_temp.minByOrNull { it.temp }.let { it!!.temp }
         }).minByOrNull { it }!!
     }
 
-    fun getCityWithSmallestAverage(): String {
+    /**
+     * Transparent version with separate boards
+     */
+    /*fun getCityWithSmallestAverage(): String {
         val arrayAvg: Array<Double> =
             Array(arraySize) { i -> weatherItems[i].hourly_temp.map { it.temp }.average() }
         val arrayCity = Array(arraySize) { i -> weatherItems[i].city }
         return arrayAvg.mapIndexedNotNull { index, d -> if (d == arrayAvg.minByOrNull { it }) arrayCity[index] else null }
             .first()
+    }*/
+
+    /**
+     * The most * FUNCTIONAL * version but the most CPU-intensive
+     */
+    fun getCityWithSmallestAverageFun(): String {
+        return weatherItems.mapNotNull { d ->
+            if (d.hourly_temp.map { it.temp }.average() == Array(weatherItems.size) { i ->
+                    d.hourly_temp.map { it.temp }.average()
+                }.minByOrNull { it }
+            ) d.city else null
+        }.first()
+
     }
 
+    /**
+     * Separate arrays for passing to the recyclerView adapter
+     */
     fun getArrayWithCity(): Array<String> {
-        return Array(arraySize) { i -> weatherItems[i].city }
+        return Array(weatherItems.size) { i -> weatherItems[i].city }
     }
 
+    /**
+     * Separate arrays for passing to the recyclerView adapter
+     */
     fun getArrayWithMaxTemp(): Array<Double> {
-        return (Array(arraySize) { i ->
+        return (Array(weatherItems.size) { i ->
             weatherItems[i].hourly_temp.maxByOrNull { it.temp }.let { it!!.temp }
         })
     }
 
     fun getArrayWithWeather(): Array<String> {
-        return Array(arraySize) { i -> weatherItems[i].weather }
+        return Array(weatherItems.size) { i -> weatherItems[i].weather }
     }
 
     fun getArrayWithSmallestTemp(): Array<Double> {
-        return (Array(arraySize) { i ->
+        return (Array(weatherItems.size) { i ->
             weatherItems[i].hourly_temp.minByOrNull { it.temp }.let { it!!.temp }
         })
+    }
+
+    /**
+     * Find the smallest temperature across all cities and print it
+     */
+    fun printSmallestTemp() {
+        println("The smallest temperature across all cities is -> ${getSmallestAcross()} °C!")
+    }
+
+    /**
+     * For each city find its highest temperatures and print the results
+    in format "city: max_temp"
+     */
+    fun printMaxTempForEachCity(arrayData: WeatherResponses) {
+        arrayData.forEach {
+            println(
+                "${it.city}: ${
+                    it.hourly_temp.maxByOrNull { it.temp }.let { it!!.temp }
+                } °C!"
+            )
+        }
+    }
+
+    /**
+     *  Find the city with the smallest average daily temperature and
+    print its name
+     */
+    fun printCityWithSmallestAvg() {
+        println("The city with the smallest average daily temperature -> ${getCityWithSmallestAverageFun()}!")
     }
 
 }
