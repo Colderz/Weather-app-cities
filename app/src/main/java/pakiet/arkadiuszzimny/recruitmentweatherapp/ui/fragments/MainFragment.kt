@@ -35,12 +35,49 @@ class MainFragment : Fragment() {
     ): View? {
         binding = MainFragmentLayoutBinding.inflate(inflater, container, false)
 
+        handleClickButton()
+        setSmallestTempAcrossTextView(viewModel.getSmallestAcross(viewModel.weatherItems))
+        setSmallestAverageCityTextView(viewModel.getCityWithSmallestAverageFun(viewModel.weatherItems))
+        recyclerViewHigh = binding.rv
+        recyclerViewHigh.layoutManager =
+            LinearLayoutManager(requireContext().applicationContext, RecyclerView.HORIZONTAL, false)
+        recyclerViewHigh.adapter =
+            HighTempAdapter(
+                viewModel.getArrayWithCity(viewModel.weatherItems),
+                viewModel.getArrayWithMaxTemp(viewModel.weatherItems)
+            )
+        recyclerViewInfo = binding.recyclerViewInfo
+        recyclerViewInfo.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+        recyclerViewInfo.adapter = ListDataAdapter(
+            viewModel.getArrayWithCity(viewModel.weatherItems),
+            viewModel.getArrayWithWeather(viewModel.weatherItems),
+            viewModel.getArrayWithSmallestTemp(viewModel.weatherItems),
+            viewModel.getArrayWithMaxTemp(viewModel.weatherItems)
+        )
+
+        viewModel.printSmallestTemp(viewModel.weatherItems)
+        viewModel.printMaxTempForEachCity(viewModel.weatherItems)
+        viewModel.printCityWithSmallestAvg(viewModel.weatherItems)
+        return binding.root
+    }
+
+    private fun setSmallestTempAcrossTextView(temp: Double) {
+        binding.textViewMinAcross.text = temp.toString()
+    }
+
+    private fun setSmallestAverageCityTextView(city: String) {
+        binding.textCityAverage.text = city
+    }
+
+    /**
+     * Animation initialization and button click handling that judges which layer is displayed based on the counter status.
+     */
+    private fun handleClickButton() {
         val animation =
             AnimationUtils.loadAnimation(context, R.anim.circle_scale_enter_from).apply {
                 duration = 700
                 interpolator = AccelerateDecelerateInterpolator()
             }
-
         binding.floatingButtonList.setOnClickListener {
             if (counter == 0) {
                 binding.floatingButtonList.isVisible = true
@@ -77,36 +114,5 @@ class MainFragment : Fragment() {
 
             }
         }
-        setSmallestTempAcrossTextView(viewModel.getSmallestAcross(viewModel.weatherItems))
-        setSmallestAverageCityTextView(viewModel.getCityWithSmallestAverageFun(viewModel.weatherItems))
-        recyclerViewHigh = binding.rv
-        recyclerViewHigh.layoutManager =
-            LinearLayoutManager(requireContext().applicationContext, RecyclerView.HORIZONTAL, false)
-        recyclerViewHigh.adapter =
-            HighTempAdapter(
-                viewModel.getArrayWithCity(viewModel.weatherItems),
-                viewModel.getArrayWithMaxTemp(viewModel.weatherItems)
-            )
-        recyclerViewInfo = binding.recyclerViewInfo
-        recyclerViewInfo.layoutManager = LinearLayoutManager(requireContext().applicationContext)
-        recyclerViewInfo.adapter = ListDataAdapter(
-            viewModel.getArrayWithCity(viewModel.weatherItems),
-            viewModel.getArrayWithWeather(viewModel.weatherItems),
-            viewModel.getArrayWithSmallestTemp(viewModel.weatherItems),
-            viewModel.getArrayWithMaxTemp(viewModel.weatherItems)
-        )
-
-        viewModel.printSmallestTemp(viewModel.weatherItems)
-        viewModel.printMaxTempForEachCity(viewModel.weatherItems)
-        viewModel.printCityWithSmallestAvg(viewModel.weatherItems)
-        return binding.root
-    }
-
-    private fun setSmallestTempAcrossTextView(temp: Double) {
-        binding.textViewMinAcross.text = temp.toString()
-    }
-
-    private fun setSmallestAverageCityTextView(city: String) {
-        binding.textCityAverage.text = city
     }
 }

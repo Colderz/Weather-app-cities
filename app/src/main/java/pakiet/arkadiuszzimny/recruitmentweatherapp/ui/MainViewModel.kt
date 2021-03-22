@@ -61,6 +61,9 @@ class MainViewModel : ViewModel() {
 
     var weatherItems = GsonBuilder().create().fromJson(json, WeatherResponses::class.java)
 
+    /**
+     * Get a list of temperatures for a city and find the minimum of these temperatures
+     */
     fun getSmallestAcross(arrayData: WeatherResponses): Double {
         return (Array(arrayData.size) { i ->
             arrayData[i].hourly_temp.minByOrNull { it.temp }.let { it!!.temp }

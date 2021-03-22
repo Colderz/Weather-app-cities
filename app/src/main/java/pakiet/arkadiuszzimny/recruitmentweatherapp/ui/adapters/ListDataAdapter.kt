@@ -31,9 +31,6 @@ class ListDataAdapter(
             itemBinding.weatherTextView.text = cityWeather
             itemBinding.textViewTempS.text = smallestTemp.toString()
             itemBinding.textViewTempH.text = highestTemp.toString()
-            itemBinding.root.setOnClickListener {
-                //val
-            }
         }
 
     }
