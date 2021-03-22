@@ -1,6 +1,5 @@
 package pakiet.arkadiuszzimny.recruitmentweatherapp.ui.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -78,25 +77,28 @@ class MainFragment : Fragment() {
 
             }
         }
-        setSmallestTempAcrossTextView(viewModel.getSmallestAcross())
-        setSmallestAverageCityTextView(viewModel.getCityWithSmallestAverageFun())
+        setSmallestTempAcrossTextView(viewModel.getSmallestAcross(viewModel.weatherItems))
+        setSmallestAverageCityTextView(viewModel.getCityWithSmallestAverageFun(viewModel.weatherItems))
         recyclerViewHigh = binding.rv
         recyclerViewHigh.layoutManager =
             LinearLayoutManager(requireContext().applicationContext, RecyclerView.HORIZONTAL, false)
         recyclerViewHigh.adapter =
-            HighTempAdapter(viewModel.getArrayWithCity(), viewModel.getArrayWithMaxTemp())
+            HighTempAdapter(
+                viewModel.getArrayWithCity(viewModel.weatherItems),
+                viewModel.getArrayWithMaxTemp(viewModel.weatherItems)
+            )
         recyclerViewInfo = binding.recyclerViewInfo
         recyclerViewInfo.layoutManager = LinearLayoutManager(requireContext().applicationContext)
         recyclerViewInfo.adapter = ListDataAdapter(
-            viewModel.getArrayWithCity(),
-            viewModel.getArrayWithWeather(),
-            viewModel.getArrayWithSmallestTemp(),
-            viewModel.getArrayWithMaxTemp()
+            viewModel.getArrayWithCity(viewModel.weatherItems),
+            viewModel.getArrayWithWeather(viewModel.weatherItems),
+            viewModel.getArrayWithSmallestTemp(viewModel.weatherItems),
+            viewModel.getArrayWithMaxTemp(viewModel.weatherItems)
         )
 
-        viewModel.printSmallestTemp()
-        viewModel.printMaxTempForEachCity()
-        viewModel.printCityWithSmallestAvg()
+        viewModel.printSmallestTemp(viewModel.weatherItems)
+        viewModel.printMaxTempForEachCity(viewModel.weatherItems)
+        viewModel.printCityWithSmallestAvg(viewModel.weatherItems)
         return binding.root
     }
 
