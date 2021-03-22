@@ -2,7 +2,7 @@ package pakiet.arkadiuszzimny.recruitmentweatherapp.ui
 
 import androidx.lifecycle.ViewModel
 import com.google.gson.GsonBuilder
-import pakiet.arkadiuszzimny.recruitmentweatherapp.WeatherResponses
+import pakiet.arkadiuszzimny.recruitmentweatherapp.model.data.WeatherResponses
 
 class MainViewModel : ViewModel() {
 
@@ -68,7 +68,7 @@ class MainViewModel : ViewModel() {
     }
 
     /**
-     * Transparent version with separate boards
+     * "Clear" version with separate boards
      */
     /*fun getCityWithSmallestAverage(): String {
         val arrayAvg: Array<Double> =
@@ -88,18 +88,17 @@ class MainViewModel : ViewModel() {
                 }.minByOrNull { it }
             ) d.city else null
         }.first()
-
     }
 
     /**
-     * Separate arrays for passing to the recyclerView adapter
+     * Separate array for passing to the recyclerView adapter
      */
     fun getArrayWithCity(): Array<String> {
         return Array(weatherItems.size) { i -> weatherItems[i].city }
     }
 
     /**
-     * Separate arrays for passing to the recyclerView adapter
+     * Separate array for passing to the recyclerView adapter
      */
     fun getArrayWithMaxTemp(): Array<Double> {
         return (Array(weatherItems.size) { i ->
@@ -107,10 +106,16 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    /**
+     * Separate array for passing to the recyclerView adapter
+     */
     fun getArrayWithWeather(): Array<String> {
         return Array(weatherItems.size) { i -> weatherItems[i].weather }
     }
 
+    /**
+     * Separate array for passing to the recyclerView adapter
+     */
     fun getArrayWithSmallestTemp(): Array<Double> {
         return (Array(weatherItems.size) { i ->
             weatherItems[i].hourly_temp.minByOrNull { it.temp }.let { it!!.temp }
@@ -128,8 +133,9 @@ class MainViewModel : ViewModel() {
      * For each city find its highest temperatures and print the results
     in format "city: max_temp"
      */
-    fun printMaxTempForEachCity(arrayData: WeatherResponses) {
-        arrayData.forEach {
+    fun printMaxTempForEachCity() {
+        println("Highest temperatures:")
+        weatherItems.forEach {
             println(
                 "${it.city}: ${
                     it.hourly_temp.maxByOrNull { it.temp }.let { it!!.temp }

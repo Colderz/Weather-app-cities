@@ -3,8 +3,6 @@ package pakiet.arkadiuszzimny.recruitmentweatherapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import pakiet.arkadiuszzimny.recruitmentweatherapp.WeatherResponses
-import pakiet.arkadiuszzimny.recruitmentweatherapp.databinding.CityMaxCardBinding
 import pakiet.arkadiuszzimny.recruitmentweatherapp.databinding.InfoCardBinding
 
 class ListDataAdapter(

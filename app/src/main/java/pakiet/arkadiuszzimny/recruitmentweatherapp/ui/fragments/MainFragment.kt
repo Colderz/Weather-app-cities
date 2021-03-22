@@ -95,7 +95,7 @@ class MainFragment : Fragment() {
         )
 
         viewModel.printSmallestTemp()
-        viewModel.printMaxTempForEachCity(viewModel.weatherItems)
+        viewModel.printMaxTempForEachCity()
         viewModel.printCityWithSmallestAvg()
         return binding.root
     }
